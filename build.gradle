@@ -1,0 +1,24 @@
+//This will give us the task for the java project.
+apply plugin:'java'
+//to get repositories
+repositories{
+    mavenCentral()
+}
+//to get dependencies
+dependencies{
+    compile "org.apache.commons:commons-lang3:3.3.2"
+    //we can specify as below also
+    //Compile group:"org.apache.commons" ,name:"commons-lang", version:"3.3.2"
+}
+
+sourceSets{
+    //Used to specify the root folder
+    main.java.srcDir "src/main"
+}
+jar {
+    //To add the download jsr to the project,use the below command
+    //collect method will transform stuffs in the collection and add it with the project
+    from configurations.compile.collect { zipTree it }
+    //Specifying main class , so that it will be picked and executed .This will be added in manifest.mf as Main-Class: main.java.hello.HelloWorld
+    manifest.attributes "Main-Class": "main.Main"
+}
